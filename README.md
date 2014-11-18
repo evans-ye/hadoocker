@@ -1,6 +1,6 @@
 # Hadoocker
 
-This project's goal is to speed up software development process and enhance existing testing framework by utilizing Docker technology.
+This project's goal is to speed up software development process and enhance Hadoop dev and test framework by utilizing Docker technology.
 
 Some key featrues provided:
 
