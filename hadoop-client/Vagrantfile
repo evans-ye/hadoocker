@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV['VAGRANT_DEFAULT_PROVIDER'] ||= 'docker'
+
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.require_version ">= 1.6.0"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.synced_folder '.', '/vagrant'
+
+  config.vm.define "client" do |client|
+    client.vm.provider "docker" do |d|
+      d.image = "hadoocker/hadoop-client:centos62"
+      # Enable the link to connect to tm-hadoop container(hadoop container must be started)
+      # d.link("hadoop.hadoocker")
+      d.vagrant_machine = "docker-platform"
+      d.vagrant_vagrantfile = "../docker-platform/Vagrantfile"
+    end
+    client.vm.hostname = "hadoop-client.hadoocker"
+    client.ssh.username = "root"
+    client.ssh.port = "22"
+  end
+
+end

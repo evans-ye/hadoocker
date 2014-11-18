@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV['VAGRANT_DEFAULT_PROVIDER'] ||= 'docker'
+
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.require_version ">= 1.6.0"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.synced_folder '.', '/vagrant'
+
+  config.vm.define "image", autostart: false do |image|
+    image.vm.provider "docker" do |d|
+      d.image = "base:centos62"
+      d.vagrant_machine = "docker-platform"
+      d.vagrant_vagrantfile = "../docker-platform/Vagrantfile"
+    end
+    image.vm.hostname = "base.hadoocker"
+    image.ssh.username = "root"
+    image.ssh.port = "22"
+  end
+end

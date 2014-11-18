@@ -1,0 +1,5 @@
+[Bigtop]
+baseurl=http://bigtop01.cloudera.org:8080/view/Releases/job/Bigtop-0.8.0/label=centos6/6/artifact/output/
+name=Bigtop packages
+enabled=1
+gpgcheck=0

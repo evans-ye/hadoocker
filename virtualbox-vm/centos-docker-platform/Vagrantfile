@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "puppetlabs/centos-6.5-64-nocm"
+  config.vm.network "public_network"
+  config.vm.provision "docker" do |d|
+    d.pull_images "centos:centos6"
+  end
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "2048"]
+  end
+  config.vm.provision "shell",
+    inline: "wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.5_x86_64.rpm -O vagrant_1.6.5_x86_64.rpm; sudo rpm -ivh vagrant*.rpm"
+
+end
