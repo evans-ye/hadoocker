@@ -9,7 +9,7 @@ ADD hadoop-client.sh /hadoop-client.sh
 # enable ssh
 
 RUN rpm -e cracklib-dicts --nodeps; \
- yum -y install openssh-server openssh-clients sudo wget tar rpm-build jdk zip vim cracklib-dicts; \
+ yum -y install openssh-server openssh-clients sudo wget tar rpm-build java-1.7.0-openjdk-devel.x86_64 zip vim cracklib-dicts; \
  sed -i.bak s/UsePAM\ yes/UsePAM\ no/ /etc/ssh/sshd_config; \
  ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key; \
  ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key; \

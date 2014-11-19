@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## install hadoop related packages
-sudo yum install -y hadoop-conf-pseudo hadoop-client hbase pig jdk
+sudo yum install -y hadoop-conf-pseudo hadoop-client hbase pig java-1.7.0-openjdk-devel.x86_64
 rm -f /etc/security/limits.d/hdfs.conf
 rm -f /etc/security/limits.d/mapred.conf
 rm -f /etc/security/limits.d/mapreduce.conf

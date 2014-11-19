@@ -4,7 +4,7 @@
 sudo su -s /bin/bash root -c "echo \"127.0.0.1 localhost $(hostname)\" > /etc/hosts"
 
 ## setup hadoop related apt repository
-sudo yum install -y vim unzip wget jdk
+sudo yum install -y vim unzip wget java-1.7.0-openjdk-devel.x86_64
 
 ## install hadoop related packages
 sudo yum install -y bigtop-utils hadoop-conf-pseudo hive pig hbase hive-hbase hbase-master hbase-regionserver zookeeper
