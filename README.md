@@ -2,7 +2,7 @@
 
 The project goal is to speed up software development process and enhance existing testing framework by utilizing docker container technology.
 
-The container can be created and destroyed really fast! (< 1 min)
+The container can be created and destroyed promptly! ( < 10 secs)
 
 Some key featrues provided:
 
