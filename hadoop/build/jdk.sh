@@ -1,4 +1,4 @@
-JAVA_HOME=/usr/java/latest
+JAVA_HOME=/usr/lib/jvm/jre
 JDK_HOME=$JAVA_HOME
 
 if ! echo ${PATH} | /bin/grep -q $JAVA_HOME/bin ; then

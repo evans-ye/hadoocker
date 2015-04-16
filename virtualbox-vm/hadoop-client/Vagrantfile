@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.box = "bigtop-client-centos6"
+  config.vm.box_url = "evansye/hadoocker-bigtop-client"
+
+  config.vm.define "hadoop-client" do |node|
+    node.vm.provider "virtualbox" do |vb|
+      # Don't boot with headless mode
+      vb.gui = false
+      # Use VBoxManage to customize the VM. For example to change memory:
+      vb.customize ["modifyvm", :id, "--memory", "512"]
+    end
+    node.vm.hostname = "bigtop-hadoop-client.hadoocker"
+  end
+
+end

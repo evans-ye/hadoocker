@@ -1,0 +1,51 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$script = <<SCRIPT
+# replace /etc/hosts by a shared hosts file
+echo -e "`hostname -I |cut -d' ' -f 2`\t`hostname -f`" >> /vagrant/hosts
+yes | mv /etc/hosts /etc/hosts.bak
+ln -s /vagrant/hosts /etc/hosts
+service network restart
+SCRIPT
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # use vagrant-cachier to cache packages at local(https://github.com/fgrehm/vagrant-cachier)
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
+  config.vm.define "hadoop" do |node|
+    node.vm.box = "bigtop-centos6"
+    node.vm.box_url = "evansye/hadoocker-bigtop"
+    node.vm.provider "virtualbox" do |vb|
+      # Don't boot with headless mode
+      vb.gui = false
+      # Use VBoxManage to customize the VM. For example to change memory:
+      vb.customize ["modifyvm", :id, "--memory", "1536"]
+    end
+    node.vm.hostname = "bigtop-hadoop.hadoocker"
+    node.vm.network "public_network"
+    node.vm.provision "shell", inline: "rm -f /vagrant/hosts"
+    node.vm.provision "shell", inline: $script
+    node.vm.provision "shell", inline: "/hadoop-init.sh", run: "always"
+  end
+
+  config.vm.define "service" do |node|
+    node.vm.box = "bigtop-client-centos6"
+    node.vm.box_url = "evansye/hadoocker-bigtop-client"
+    node.vm.provider "virtualbox" do |vb|
+      # Don't boot with headless mode
+      vb.gui = false
+      # Use VBoxManage to customize the VM. For example to change memory:
+      vb.customize ["modifyvm", :id, "--memory", "512"]
+    end
+    node.vm.hostname = "bigtop-hadoop-client.hadoocker"
+    node.vm.network "public_network"
+    node.vm.provision "shell", inline: $script
+  end
+
+end

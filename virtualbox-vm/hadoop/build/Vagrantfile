@@ -1,0 +1,53 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$script = <<SCRIPT
+# Installing vagrant keys
+mkdir -pm 700 /home/vagrant/.ssh
+wget --no-check-certificate 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub' -O /home/vagrant/.ssh/authorized_keys
+chmod 0600 /home/vagrant/.ssh/authorized_keys
+chown -R vagrant /home/vagrant/.ssh
+# Setup Hadoop installation
+cp /vagrant/jdk.sh /etc/profile.d/jdk.sh
+cp /vagrant/hadoop-init.sh /hadoop-init.sh
+cp /vagrant/hadoop-env.sh /hadoop-env.sh
+SCRIPT
+
+$onboot = <<ONBOOT
+chkconfig hadoop-hdfs-namenode off
+chkconfig hadoop-hdfs-datanode off
+chkconfig hadoop-hdfs-secondarynamenode off
+chkconfig hadoop-yarn-resourcemanager off
+chkconfig hadoop-yarn-nodemanager off
+chkconfig hadoop-mapreduce-historyserver off
+chkconfig hbase-master off
+chkconfig hbase-regionserver off
+echo "If hadoop is not available, please run /hadoop-init.sh to start HADOOP, YARN, HBASE daemons" >> /etc/motd
+ONBOOT
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # use vagrant-cachier to cache packages at local(https://github.com/fgrehm/vagrant-cachier)
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
+  config.vm.box = "hadoocker-base-centos6"
+  config.vm.box_url = "evansye/hadoocker-base"
+
+  config.vm.define "hadoop" do |node|
+    node.vm.provider "virtualbox" do |vb|
+      # Don't boot with headless mode
+      vb.gui = false
+      # Use VBoxManage to customize the VM. For example to change memory:
+      vb.customize ["modifyvm", :id, "--memory", "1536"]
+    end
+    node.vm.hostname = "bigtop-hadoop.hadoocker"
+    node.vm.provision "shell", inline: $script
+    node.vm.provision "shell", path: "provision.sh"
+    node.vm.provision "shell", inline: $onboot
+    node.vm.provision "shell", path: "cleanup.sh"
+  end
+end

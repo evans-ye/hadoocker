@@ -1,18 +1,32 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+$script = <<SCRIPT
+echo "Installing vagrant..."
+sudo yum -y install vagrant
+echo "done!"
+
+echo "Installing Docker..."
+sudo yum -y install docker-io
+sudo echo "other_args=\\\"--insecure-registry <PRIVATE_DOCKERHUB_FQDN>\\\"" > /etc/sysconfig/docker
+sudo service docker start
+echo "done!"
+
+echo "Closing iptables..."
+service iptables stop
+chkconfig iptables off
+SCRIPT
+
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "puppetlabs/centos-6.5-64-nocm"
+
+  config.vm.box = "hadoocker-base-centos6"
+  config.vm.box_url = "evansye/hadoocker-base"
+
   config.vm.network "public_network"
-  config.vm.provision "docker" do |d|
-    d.pull_images "centos:centos6"
-  end
+  config.vm.provision "shell", inline: $script
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
-  config.vm.provision "shell",
-    inline: "wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.5_x86_64.rpm -O vagrant_1.6.5_x86_64.rpm; sudo rpm -ivh vagrant*.rpm"
-
 end

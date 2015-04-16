@@ -5,17 +5,28 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.require_version ">= 1.6.0"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  config.vm.box_download_insecure = true
+
+  # workaround Docker Platform port conflict issue
+  config.vm.network "forwarded_port", guest: 2375, host: 2375, auto_correct: true
   config.vm.define "docker-platform" do |node|
     node.vm.box = "yungsang/boot2docker"
     node.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--memory", "2048"]
     end
-    node.vm.network "forwarded_port", host: 50070, guest: 50070
-    node.vm.network "forwarded_port", host: 8088, guest: 8088
-    node.vm.network "forwarded_port", host: 60010, guest: 60010
-    node.vm.network "forwarded_port", host: 443, guest: 443
-    node.vm.network "forwarded_port", host: 80, guest: 80
-    node.vm.network "forwarded_port", host: 8080, guest: 8080
+    # NameNode web ui
+    node.vm.network "forwarded_port", host: 8070, guest: 8070, auto_correct: true
+    # ResourceManager web ui
+    node.vm.network "forwarded_port", host: 8088, guest: 8088, auto_correct: true
+    # HBase web ui
+    node.vm.network "forwarded_port", host: 8110, guest: 8110, auto_correct: true
+    # HTTPS
+    node.vm.network "forwarded_port", host: 443, guest: 443, auto_correct: true
+    # HTTP
+    node.vm.network "forwarded_port", host: 80, guest: 80, auto_correct: true
+    # often used port
+    node.vm.network "forwarded_port", host: 8080, guest: 8080, auto_correct: true
+    node.vm.provision "shell", path: "provision.sh"
   end
 
 end

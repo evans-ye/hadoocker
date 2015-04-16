@@ -1,15 +1,15 @@
-FROM tianon/centos:6.2
-MAINTAINER Evans Ye <innovansye@gmail.com>
+FROM evansye/minimal:centos6
+MAINTAINER Evans Ye <evansye@apache.org>
+
+RUN ls /etc/yum.repos.d/CentOS-*.repo; \
+ yum clean all; yum -y install openssh-server openssh-clients sudo wget tar zip vim cracklib-dicts telnet rpm-build redhat-lsb nscd java-1.7.0-openjdk-devel
 
 ADD Bigtop.repo /etc/yum.repos.d/Bigtop.repo
 ADD bash_profile /root/.bash_profile
 ADD bashrc /root/.bashrc
-ADD hadoop-client.sh /hadoop-client.sh
-
-# enable ssh
 
 RUN rpm -e cracklib-dicts --nodeps; \
- yum -y install openssh-server openssh-clients sudo wget tar rpm-build java-1.7.0-openjdk-devel.x86_64 zip vim cracklib-dicts; \
+# enable ssh
  sed -i.bak s/UsePAM\ yes/UsePAM\ no/ /etc/ssh/sshd_config; \
  ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key; \
  ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key; \
@@ -26,7 +26,7 @@ RUN rpm -e cracklib-dicts --nodeps; \
  touch /etc/sysconfig/network; \
  echo "NETWORKING=yes" > /etc/sysconfig/network; \
 
-# setup default password
- echo "vagrant" | passwd --stdin root;
+# cleanup
+ yum -y clean all;
 
 CMD /usr/sbin/sshd -D
