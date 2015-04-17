@@ -5,10 +5,10 @@
   },
   "builders": [
     {
-      "name": "CentOS-6.5-x86_64-{{user `build_version`}}",
+      "name": "CentOS-6.6-x86_64-{{user `build_version`}}",
       "type": "virtualbox-iso",
       "guest_os_type": "RedHat_64",
-      "iso_url": "file:///CentOS-6.5-x86_64-minimal.iso",
+      "iso_url": "file:///CentOS-6.6-x86_64-minimal.iso",
       "iso_checksum_type": "none",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "disk_size": 204800,
