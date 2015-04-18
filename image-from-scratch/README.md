@@ -3,7 +3,7 @@
 To create the base image, just simpely
 
 ```
-./mkimage-yum.sh evansye/minimal:centos6
+./mkimage-yum.sh evansye/hadoocker-minimal:centos6
 ```
 
 The mkimage-yum.sh is just shamelessly stole from docker repo:
