@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "image" do |image|
     image.vm.provider "docker" do |d|
-      d.image = "evansye/base:centos6"
+      d.image = "evansye/hadoocker-base:centos6"
       d.vagrant_machine = "docker-platform"
       d.vagrant_vagrantfile = "../docker-platform/Vagrantfile"
     end

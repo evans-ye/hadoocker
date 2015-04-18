@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG=evansye/base:centos6
+TAG=evansye/hadoocker-base:centos6
 
 yes |cp ../../hadoop-client/build/hadoop-client.sh .
 

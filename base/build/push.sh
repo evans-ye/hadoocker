@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG=evansye/base:centos6
+TAG=evansye/hadoocker-base:centos6
 
 docker rmi $TAG
 docker tag $TAG-dev $TAG

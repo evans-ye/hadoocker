@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "hadoop" do |node|
     node.vm.provider "docker" do |d|
       d.name = "bigtop-hadoop"
-      d.image = "evansye/bigtop:centos6"
+      d.image = "evansye/hadoocker-hadoop:centos6"
       d.ports = ["50070:50070","8088:8088","60010:60010"]
       d.cmd = ["/hadoop-init.sh"]
       d.vagrant_machine = "docker-platform"

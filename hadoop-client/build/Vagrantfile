@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "client" do |client|
     client.vm.provider "docker" do |d|
-      d.image = "evansye/bigtop-client:centos6-dev"
+      d.image = "evansye/hadoocker-hadoop-client:centos6-dev"
       # Enable the link to connect to bigtop-hadoop container(hadoop container must be started)
       d.link("bigtop-hadoop:bigtop-hadoop.hadoocker")
       d.vagrant_machine = "docker-platform"

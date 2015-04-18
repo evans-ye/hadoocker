@@ -1,4 +1,4 @@
-FROM evansye/minimal:centos6
+FROM evansye/hadoocker-base:centos6
 MAINTAINER Evans Ye <evansye@apache.org>
 
 RUN ls /etc/yum.repos.d/CentOS-*.repo; \
