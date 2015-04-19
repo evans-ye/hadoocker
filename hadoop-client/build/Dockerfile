@@ -1,4 +1,4 @@
-FROM evansye/base:centos6
+FROM evansye/hadoocker-base:centos6
 MAINTAINER Evans Ye <evansye@apache.org>
 
 ADD hadoop-client.sh /hadoop-client.sh
