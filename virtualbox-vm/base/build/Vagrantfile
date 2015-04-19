@@ -10,8 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.cache.scope = :box
   end
 
-  config.vm.box = "centos6"
-  config.vm.box_url = "evansye/hadoocker-minimal"
+  config.vm.box = "evansye/hadoocker-minimal"
 
   config.vm.define "node" do |node|
     node.vm.hostname = "hadoocker-base.hadoocker"

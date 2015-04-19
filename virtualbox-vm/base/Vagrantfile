@@ -5,8 +5,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = "hadoocker-base-centos6"
-  config.vm.box_url = "evansye/hadoocker-base"
+  config.vm.box = "evansye/hadoocker-base"
 
   config.vm.define "image" do |image|
     image.vm.hostname = "hadoocker-base.hadoocker"

@@ -20,8 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.cache.scope = :box
   end
 
-  config.vm.box = "hadoocker-base-centos6"
-  config.vm.box_url = "evansye/hadoocker-base"
+  config.vm.box = "evansye/hadoocker-base"
 
   config.vm.define "hadoop-client" do |node|
     node.vm.provider "virtualbox" do |vb|

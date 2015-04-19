@@ -5,8 +5,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = "bigtop-client-centos6"
-  config.vm.box_url = "evansye/hadoocker-bigtop-client"
+  config.vm.box = "evansye/hadoocker-hadoop-client"
 
   config.vm.define "hadoop-client" do |node|
     node.vm.provider "virtualbox" do |vb|
