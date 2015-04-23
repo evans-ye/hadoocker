@@ -2,6 +2,7 @@
 
 echo "Copy installation scritps"
 /bin/cp ../../../hadoop-client/build/hadoop-client.sh .
+/bin/cp ../../../base/build/Bigtop.repo .
 /bin/cp ../../vagrant-boxes/packer/scripts/cleanup.sh .
 
 

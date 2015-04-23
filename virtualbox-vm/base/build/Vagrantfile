@@ -14,5 +14,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "node" do |node|
     node.vm.hostname = "hadoocker-base.hadoocker"
+    node.vm.provision "shell", path: "provision.sh"
   end
 end
