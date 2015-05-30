@@ -22,6 +22,12 @@ sudo /etc/init.d/hadoop-hdfs-namenode init
 ## start HDFS
 for i in hadoop-hdfs-namenode hadoop-hdfs-datanode ; do sudo service $i start ; done
 
+while true; do
+    hadoop fs -ls /
+    if [ $? -eq 0 ]; then break; fi
+    sleep 3
+done
+
 ## initialize HDFS
 sudo su -s /bin/bash hdfs -c '/usr/bin/hadoop fs -mkdir -p /tmp /var/log /tmp/hadoop-yarn /var/log/hadoop-yarn/apps /hbase /benchmarks /user /user/history /user/root'
 sudo su -s /bin/bash hdfs -c '/usr/bin/hadoop fs -chmod -R 1777 /tmp'
