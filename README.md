@@ -124,7 +124,7 @@ Otherwise, you will get Broken pipe failure while doing vagrant ssh.
  * Aside the security fix workaround, there is also a critical issue which is that the file system view can be different under certain image building operations. To avoid that happening, the boot2docker driver should be specified to devicemapper.
 
 ```
-sudo sh -c "echo \"EXTRA_ARGS=\"--insecure-registry <PRIVATE_DOCKERHUB_FQDN> --storage-driver=devicemapper\"\" > /var/lib/boot2docker/profile"
+sudo sh -c "echo \"EXTRA_ARGS=\\\"--insecure-registry <PRIVATE_DOCKERHUB_FQDN> --storage-driver=devicemapper\\\"\" > /var/lib/boot2docker/profile"
 sudo /etc/init.d/docker restart
 ```
 
