@@ -20,6 +20,7 @@ Some key featrues provided:
 
 * Bigtop Hadoop client (hadoocker/hadoop-client)
 
+## Vagrant boxes
 
 * hadoocker-base CentOS (hadoocker/virtualbox-vm/hadoocker-base)
 
