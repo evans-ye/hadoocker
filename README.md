@@ -2,15 +2,15 @@
 
 The project goal is to speed up software development process and enhance existing testing framework by utilizing docker container technology.
 
-The container can be created and destroyed promptly! ( < 10 secs)
+The container can be created and destroyed promptly!
 
 Some key featrues provided:
 
-* hadoocker-base CentOS docker container
+* Provides hadoocker-base CentOS docker container
 
-* bigtop-hadoop pseudo-distributed docker container
+* Provides bigtop-hadoop pseudo-distributed docker container
 
-* hadoop and service integration testing and CI template
+* Provides hadoop and service integration testing and CI template
 
 ## Docker images
 
@@ -81,19 +81,14 @@ open git bash or cygwin
 git clone https://github.com/evans-ye/hadoocker.git
 cd hadoocker/virtualbox-vm/centos-docker-platform/
 vagrant up
-vagrant ssh
+vagrant ssh #Get in the CentOS VM. The following commands are operated on the VM instead of cygwin
+sudo su -
+cd /hadoocker/hadoocker-base
+vagrant up
+vagrant ssh #Get in the CentOS Docker container
 ```
 
 ## Linux Getting Started
-
-```
-git clone https://github.com/evans-ye/hadoocker.git
-cd hadoocker/hadoocker-base
-vagrant up
-vagrant ssh
-```
-
-* Note: when first time doing vagrant up, it might take 3-5min to download the image
 
 ### Running Hadoocker on existing Linux or boot2docker in PRIVATE NETWORK (You have private dockerhub)
 
@@ -129,6 +124,17 @@ sudo /etc/init.d/docker restart
 ```
 
 See hadoocker/docker-platform/provision.sh
+
+### Spin up a Docker container
+
+```
+git clone https://github.com/evans-ye/hadoocker.git
+cd hadoocker/hadoocker-base
+vagrant up
+vagrant ssh
+```
+
+* Note: when first time doing vagrant up, it might take 3-5min to download the image
 
 ## Usage
 
