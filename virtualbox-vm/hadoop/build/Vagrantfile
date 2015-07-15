@@ -34,6 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.cache.scope = :box
   end
 
+  config.vm.box_download_insecure = true
   config.vm.box = "evansye/hadoocker-base"
 
   config.vm.define "hadoop" do |node|

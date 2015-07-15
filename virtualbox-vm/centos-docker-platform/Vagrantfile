@@ -12,6 +12,9 @@ sudo echo "other_args=\\\"--insecure-registry <PRIVATE_DOCKERHUB_FQDN>\\\"" > /e
 sudo service docker start
 echo "done!"
 
+echo "Grant docker access right to vagrant user"
+sudo usermod -a -G docker vagrant
+
 echo "Closing iptables..."
 service iptables stop
 chkconfig iptables off
@@ -23,9 +26,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.synced_folder '../../../hadoocker', '/hadoocker'
 
-  config.vm.box = "hadoocker-base-centos6"
-  config.vm.box_url = "evansye/hadoocker-base"
+  config.vm.box_download_insecure = true
+  config.vm.box = "centos6"
 
+  # If you're using laptop and WIFI network, mark out public_network since it can not obtain the DHCP IP.
+  # The public_network works fine with wired network only in our environment.
   config.vm.network "public_network"
   config.vm.provision "shell", inline: $script
   config.vm.provider "virtualbox" do |vb|

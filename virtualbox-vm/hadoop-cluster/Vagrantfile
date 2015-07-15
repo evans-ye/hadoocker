@@ -18,9 +18,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.cache.scope = :box
   end
 
+  config.vm.box_download_insecure = true
+
   config.vm.define "hadoop" do |node|
-    node.vm.box = "bigtop-centos6"
-    node.vm.box_url = "evansye/hadoocker-bigtop"
+    node.vm.box = "evansye/hadoocker-hadoop"
     node.vm.provider "virtualbox" do |vb|
       # Don't boot with headless mode
       vb.gui = false
@@ -28,6 +29,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--memory", "1536"]
     end
     node.vm.hostname = "bigtop-hadoop.hadoocker"
+    # If you're using laptop and WIFI network, mark out public_network since it can not obtain the DHCP IP.
+    # The public_network works fine with wired network only in our environment.
     node.vm.network "public_network"
     node.vm.provision "shell", inline: "rm -f /vagrant/hosts"
     node.vm.provision "shell", inline: $script
@@ -35,8 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "service" do |node|
-    node.vm.box = "bigtop-client-centos6"
-    node.vm.box_url = "evansye/hadoocker-bigtop-client"
+    node.vm.box = "evansye/hadoocker-hadoop-client"
     node.vm.provider "virtualbox" do |vb|
       # Don't boot with headless mode
       vb.gui = false
@@ -44,6 +46,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--memory", "512"]
     end
     node.vm.hostname = "bigtop-hadoop-client.hadoocker"
+    # If you're using laptop and WIFI network, mark out public_network since it can not obtain the DHCP IP.
+    # The public_network works fine with wired network only in our environment.
     node.vm.network "public_network"
     node.vm.provision "shell", inline: $script
   end

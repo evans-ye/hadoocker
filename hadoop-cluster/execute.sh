@@ -4,7 +4,7 @@ vagrant up --no-parallel
 
 # Wait untill containers are ready
 while true; do
-    vagrant ssh hadoop -c "hadoop fs -ls /"
+    echo "hadoop fs -ls /" | vagrant ssh hadoop
     if [ $? -eq 0 ]; then break; fi
     sleep 1
 done
