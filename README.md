@@ -1,5 +1,9 @@
 # Hadoocker
 
+## DEPRECATED!!!
+The project will not be further maintained.
+I suggest to use docker-compose instead of Vagrant docker provider to gain better UX.
+
 The project goal is to speed up software development process and enhance existing testing framework by utilizing docker container technology.
 
 The container can be created and destroyed promptly!
